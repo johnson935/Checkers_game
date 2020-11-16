@@ -25,6 +25,9 @@ class Game:
         self.turn = RED
         self.valid_moves = {}
         
+    def winner(self):
+        return self.board.winner()
+    
     def reset(self):
         self._init()
         
@@ -65,3 +68,11 @@ class Game:
             self.turn = WHITE
         else:
             self.turn = RED
+    
+    def get_board(self):
+        return self.board
+    
+    def ai_move(self, board):
+        if board != None:
+            self.board = board
+        self.change_turn()

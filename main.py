@@ -6,9 +6,10 @@ Created on Wed Oct 21 18:36:14 2020
 """
 
 import pygame
-from Checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, RED
+from Checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, RED, WHITE
 from Checkers.board import Board
 from Checkers.game import Game
+from minimax.algorithm import minimax
 FPS = 60
 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -27,6 +28,14 @@ def main():
     while run:
         clock.tick(FPS)
         
+        if game.turn == WHITE:
+            value, new_board = minimax(game.get_board(), 4, WHITE, game)
+            game.ai_move(new_board)
+            
+        if game.winner() != None:
+            print(game.winner())
+            run = False
+            
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
